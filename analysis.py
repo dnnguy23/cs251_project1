@@ -291,8 +291,16 @@ class Analysis:
     
     def corr(self, headers):
         '''
-        EXTENSION
-        Return the Pearson correlation coefficient matrix of quantitative variables specified in headers
+        Compute the Pearson correlation coefficients of quantitative variables 
+        
+        Parameters:
+        -----------
+        headers: Python list of str.
+            Variables whose correlations are pair-wise computed
+            
+        Returns:
+        -----------
+        corr_matrix: a Pearson correlation coefficient matrix
         '''
         
         corr_matrix = np.ones((len(headers), len(headers)))
@@ -315,5 +323,25 @@ class Analysis:
                 corr_matrix[i,j] = num/den
                 
         return corr_matrix
+    
+    
+    def format_corr_matrix (self, headers):
+        '''
+        returns a string of formatted Pearson correlation matrix among variables
+        specfied in headers.
+        
+        NOTE: We need this function because we cannot name rows and columns of numpy ndarray like 
+        pandas dataframe. Lack of variables' name may confuse users.
+        '''
+        
+        matrix_str = "\t\t"
+        
+        for i in range(len(headers)):
+            matrix_str += f"\t{headers[i]}\n"
+            
+        for i in range(len(headers)):
+            matrix_str += ""
+        
+        
         
         
