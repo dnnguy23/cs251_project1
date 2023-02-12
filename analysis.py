@@ -282,3 +282,38 @@ class Analysis:
 
         plt.tight_layout()
         return fig, axes
+    
+    
+    '''
+    ------------------------------------------
+    EXTENSION
+    '''
+    
+    def corr(self, headers):
+        '''
+        EXTENSION
+        Return the Pearson correlation coefficient matrix of quantitative variables specified in headers
+        '''
+        
+        corr_matrix = np.ones((len(headers), len(headers)))
+        
+        for i in range(len(headers)):
+            for j in range(len(headers)):
+                if (i == j):
+                    continue
+                
+                x = self.data.select_data([headers[i]])
+                y = self.data.select_data([headers[j]])
+                
+                mean_x = self.mean([headers[i]])
+                mean_y = self.mean([headers[j]])
+                dev_x = x - mean_x
+                dev_y = y - mean_y
+        
+                num = np.sum(dev_x * dev_y)
+                den = np.sqrt(np.sum(dev_x**2) * np.sum(dev_y**2))
+                corr_matrix[i,j] = num/den
+                
+        return corr_matrix
+        
+        
