@@ -333,14 +333,19 @@ class Analysis:
         NOTE: We need this function because we cannot name rows and columns of numpy ndarray like 
         pandas dataframe. Lack of variables' name may confuse users.
         '''
+        corr_matrix = self.corr(headers)
         
         matrix_str = "\t\t"
-        
         for i in range(len(headers)):
-            matrix_str += f"\t{headers[i]}\n"
+            matrix_str += f"{headers[i]:<10}\t"
+        matrix_str += "\n"
+        for i in range(len(headers)):
+            matrix_str += f"{headers[i]:<10}\t"
+            for j in range(len(headers)):
+                matrix_str += f"{corr_matrix[i, j]:.8f}\t"
+            matrix_str += "\n"
             
-        for i in range(len(headers)):
-            matrix_str += ""
+        return matrix_str
         
         
         
