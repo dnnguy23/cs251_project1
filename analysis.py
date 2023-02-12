@@ -261,24 +261,24 @@ class Analysis:
         x axis and rows usually share the same y axis.
         '''
         
-        fig, axis = plt.subplots(len(data_vars), len(data_vars), figsize=fig_sz, 
-                                 sharex='col', sharey='row')
+        fig, axes = plt.subplots(len(data_vars), len(data_vars), figsize=fig_sz, 
+                                 sharex="col", sharey="row")
         fig.suptitle(title)
         for i in range(len(data_vars)):
             for j in range(len(data_vars)):
                 # if the same variable, use histogram, else use scatterplot
                 if i == j:
                     plt_data = self.data.select_data([data_vars[i]])
-                    axis[i, j].hist(plt_data)                    
+                    axes[i, j].hist(plt_data)                    
                 else:
                     plt_data = self.data.select_data([data_vars[i], data_vars[j]])
-                    axis[i, j].scatter(plt_data[:, 0], plt_data[:, 1])
+                    axes[i, j].scatter(plt_data[:, 0], plt_data[:, 1])
 
                 # set labels on x-axis and y-axis
                 if i == len(data_vars) - 1:
-                    axis[i, j].set_xlabel(data_vars[j])
+                    axes[i, j].set_xlabel(data_vars[j])
                 if j == 0:
-                    axis[i, j].set_ylabel(data_vars[i])
+                    axes[i, j].set_ylabel(data_vars[i])
 
         plt.tight_layout()
-        return fig, axis
+        return fig, axes
