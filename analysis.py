@@ -261,8 +261,8 @@ class Analysis:
         x axis and rows usually share the same y axis.
         '''
         
-        fig, axes = plt.subplots(len(data_vars), len(data_vars), figsize=fig_sz, 
-                                 sharex="col", sharey="row")
+        fig, axes = plt.subplots(len(data_vars), len(data_vars), figsize=fig_sz,
+                                sharex="col", sharey="row")
         fig.suptitle(title)
         for i in range(len(data_vars)):
             for j in range(len(data_vars)):
@@ -271,7 +271,7 @@ class Analysis:
                     plt_data = self.data.select_data([data_vars[i]])
                     axes[i, j].hist(plt_data)                    
                 else:
-                    plt_data = self.data.select_data([data_vars[i], data_vars[j]])
+                    plt_data = self.data.select_data([data_vars[j], data_vars[i]])
                     axes[i, j].scatter(plt_data[:, 0], plt_data[:, 1])
 
                 # set labels on x-axis and y-axis
